@@ -1,30 +1,28 @@
-
+"use strict";
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-
-
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 // const { DATABASE_URL } = process.env
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
-// const sequelize = new Sequelize(`${DATABASE_URL}`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  port: DB_PORT,
-  define: {
-    freezeTableName: true,  // Mantiene los nombres definidos en los modelos (no los cambia a plural)
-    // timestamps: false    // Comentar si se quieren crear los campos createdAt y updatedAt de forma predeterminada en todas las tablas
-  }
+    // const sequelize = new Sequelize(`${DATABASE_URL}`, {
+    logging: false,
+    native: false,
+    port: DB_PORT,
+    define: {
+        freezeTableName: true, // Mantiene los nombres definidos en los modelos (no los cambia a plural)
+        // timestamps: false    // Comentar si se quieren crear los campos createdAt y updatedAt de forma predeterminada en todas las tablas
+    }
 });
 const basename = path.basename(__filename);
 const modelDefiners = [];
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
 fs.readdirSync(path.join(__dirname, '/models'))
-  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-  .forEach((file) => {
+    .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+    .forEach((file) => {
     modelDefiners.push(require(path.join(__dirname, '/models', file)));
-  });
+});
 // Injectamos la conexion (sequelize) a todos los modelos
 // modelDefiners.forEach(model => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
@@ -46,7 +44,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 //   Review,
 //   Order_status
 // } = sequelize.models;
-
 // // Aca vendrían las relaciones
 // Book.belongsToMany(Author, {
 //   through: 'book_author',
@@ -147,8 +144,4 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Book.belongsToMany(Review,{through:'review_book'})
 // User.belongsToMany(Book, {through:'user_favorites'})
 // Book.belongsToMany(User, {through:'user_favorites'})
-
-module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
-};
+module.exports = Object.assign(Object.assign({}, sequelize.models), { conn: sequelize });
