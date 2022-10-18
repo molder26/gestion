@@ -1,9 +1,11 @@
-
-const server1 = require('./src/app');
-require('dotenv').config();
+const server = require("./src/app");
+const { conn } = require("./src/db");
+require("dotenv").config();
 const { PORT } = process.env;
 
-
-server1.listen((PORT || 3001), async () => {
-	console.log(`%s listening at ${PORT || 3001}`); // eslint-disable-line no-console
+conn.sync({ force: true }).then(() => {
+	console.log('Modelos Sincronizados');
+    server.listen(PORT || 3001, () => {
+        console.log(`%s listening at ${PORT || 3001}`); // eslint-disable-line no-console
+    });
 });
