@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false,
+            autoIncrement: true,
         },
         name: {
             type: DataTypes.STRING,
@@ -15,6 +15,20 @@ module.exports = (sequelize) => {
             validate: {
                 len: [1, 100],
             },
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('NOW()'),
+            allowNull: false,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('NOW()'),
+            allowNull: false,
+        },
+        deletedAt: {
+            type: DataTypes.DATE,
+            allowNull: true,
         },
     });
 };
