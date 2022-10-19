@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
     {
         // const sequelize = new Sequelize(`${DATABASE_URL}`, {
-        logging: false, // set to console.log to see the raw SQL queries
+        logging: console.log, // set to console.log to see the raw SQL queries
         native: false, // lets Sequelize know we can use pg-native for ~30% more speed
         // define: {
         //   freezeTableName: true,  // Mantiene los nombres definidos en los modelos (no los cambia a plural)
@@ -26,7 +26,7 @@ fs.readdirSync(path.join(__dirname, "/models"))
         (file: string) =>
             file.indexOf(".") !== 0 &&
             file !== basename &&
-            file.slice(-3) === ".js"
+            file.slice(-3) === ".ts"
     )
     .forEach((file: string) => {
         modelDefiners.push(require(path.join(__dirname, "/models", file)));

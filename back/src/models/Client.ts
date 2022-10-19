@@ -1,21 +1,21 @@
+import { Sequelize } from 'sequelize';
 const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
-module.exports = (sequelize) => {
+module.exports = (sequelize: Sequelize) => {
     // defino el modelo
-    sequelize.define("detail", {
+    sequelize.define("client", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false,
+            autoIncrement: true,
         },
-        quantity: {
-            type: DataTypes.INTEGER,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false,
-        },
-        price: {
-            type: DataTypes.FLOAT,
-            allowNull: false,
+            validate: {
+                len: [1, 100],
+            },
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -26,6 +26,10 @@ module.exports = (sequelize) => {
             type: DataTypes.DATE,
             defaultValue: sequelize.literal('NOW()'),
             allowNull: false,
+        },
+        deletedAt: {
+            type: DataTypes.DATE,
+            allowNull: true,
         },
     });
 };

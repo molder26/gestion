@@ -1,20 +1,21 @@
+import { Sequelize } from 'sequelize';
 const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
-module.exports = (sequelize) => {
+module.exports = (sequelize: Sequelize) => {
     // defino el modelo
-    sequelize.define("invoice", {
+    sequelize.define("detail", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false,
         },
-        amount: {
-            type: DataTypes.FLOAT,
+        quantity: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        date: {
-            type: DataTypes.DATEONLY,
+        price: {
+            type: DataTypes.FLOAT,
             allowNull: false,
         },
         createdAt: {
