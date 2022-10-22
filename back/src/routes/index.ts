@@ -7,12 +7,7 @@ const router: Router = Router();
 router.use('/client', require('./client'));
 router.use('/invoice', require('./invoice'));
 router.use('/product', require('./product'));
-// router.use('/categories', require('./categories'));
-// router.use('/user', require('./user'));
-// router.use('/reviews', require('./reviews'));
-// router.use('/payments', require('./payments'));
-// router.use('/mercadopago', require('./paymentMP'));
-// router.use('/publisher', require('./publisher'));
-// router.use('/payment-method', require('./paymentMethod'));
+router.use('/detail', require('./detail'));
+
 
 module.exports = router;
