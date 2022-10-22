@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
-const { Invoice, Detail, Product, Client } = require("../db");
+const { Detail, Invoice, Product } = require("../db");
 
 exports.getAll = async (req: Request, res: Response) => {
     try {
-        const invoice = await Invoice.findAll({ order: [["date", "ASC"]] });
-        return res.json(invoice);
+        const details = await Detail.findAll({
+            include: [{ model: Invoice }, { model: Product }],
+        });
+        return res.json(details);
     } catch (error) {
         console.log(error);
         res.status(400).json({
@@ -13,10 +15,20 @@ exports.getAll = async (req: Request, res: Response) => {
     }
 };
 
-exports.getById = async (req: Request, res: Response) => {
+exports.getByInvoiceId = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const invoice = await Invoice.findByPk(id);
+        const invoice = await Invoice.findAll({
+            include: [
+                {
+                    model: Invoice,
+                    where: {
+                        id: id,
+                    },
+                },
+                { model: Product },
+            ],
+        });
         if (invoice) return res.json(invoice);
 
         return res.status(404).json({
@@ -31,27 +43,20 @@ exports.getById = async (req: Request, res: Response) => {
 };
 
 exports.postId = async (req: Request, res: Response) => {
-    const { amount, date, clientId, items } = req.body;
+    const { body } = req;
     try {
-        const newInvoice = await Invoice.create({ amount, date });
-        await newInvoice.setClient(clientId);
+        console.log(body);
+        const newDetail = new Detail(body);
+        await newDetail.save();
 
-        items.forEach(async (i: any) => {
-            const newDetail = await Detail.create({
-                quantity: i.quantity,
-                price: i.price,
-            });
-
-            await newDetail.setProduct(i.id);
-            await newDetail.setInvoice(newInvoice.id);
-
-            const product = await Product.findByPk(i.id);
-            await product.update({
-                stock: product.stock - i.quantity,
-            });
+        body.items.forEach(async (i:{}) => {
+            try {
+                console.log(i)
+                // await newDetail.addProduct(i.id);
+            } catch (error) {}
         });
 
-        return res.json(newInvoice);
+        return res.json(newDetail);
     } catch (error) {
         console.log(error);
         res.status(500).json({
