@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
         native: false, // lets Sequelize know we can use pg-native for ~30% more speed
         // define: {
         //   freezeTableName: true,  // Mantiene los nombres definidos en los modelos (no los cambia a plural)
-        //   // timestamps: false    // Comentar si se quieren crear los campos createdAt y updatedAt de forma predeterminada en todas las tablas
+   // timestamps: false    // Comentar si se quieren crear los campos createdAt y updatedAt de forma predeterminada en todas las tablas
         // }
     }
 );
