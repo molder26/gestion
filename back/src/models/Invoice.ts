@@ -8,7 +8,7 @@ module.exports = (sequelize: Sequelize) => {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            allowNull: false,
+            autoIncrement: true,
         },
         amount: {
             type: DataTypes.FLOAT,
@@ -20,12 +20,12 @@ module.exports = (sequelize: Sequelize) => {
         },
         createdAt: {
             type: DataTypes.DATE,
-            defaultValue: sequelize.literal('NOW()'),
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false,
         },
         updatedAt: {
             type: DataTypes.DATE,
-            defaultValue: sequelize.literal('NOW()'),
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
             allowNull: false,
         },
     });
