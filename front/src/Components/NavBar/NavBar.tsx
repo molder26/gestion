@@ -95,7 +95,7 @@ function NavBar() {
                                         <Link
                                             style={{
                                                 textDecoration: "none",
-                                                color: "white",
+                                                color: "black",
                                             }}
                                             to={`/${page}`}
                                         >
