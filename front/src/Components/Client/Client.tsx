@@ -2,14 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
+import { TableClient } from "./TableClient";
 
 function Client() {
   return (
     <>
       <Link to="/">
-        <h2>Home</h2>
+        <h2>Volver al Home</h2>
       </Link>
-      <h1>Cliente</h1>
+
+      <TableClient/>
+
+
+      <h2>Cargar Cliente</h2>
       <Formik
         initialValues={{ name: "" }}
         validationSchema={Yup.object({

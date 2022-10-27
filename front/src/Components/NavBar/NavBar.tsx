@@ -23,7 +23,7 @@ function NavBar() {
         setAnchorElNav(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu= () => {
         setAnchorElNav(null);
     };
 
