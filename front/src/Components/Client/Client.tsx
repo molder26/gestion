@@ -15,7 +15,7 @@ function Client() {
         validationSchema={Yup.object({
           name: Yup.string().required("El Campo nombre es requerido"),
         })}
-        onSubmit={(values) => {
+        onSubmit={(values: any) => {
           console.log(values);
         }}
       >
