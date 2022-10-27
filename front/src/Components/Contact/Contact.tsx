@@ -1,17 +1,14 @@
-import React from 'react';
-import {Link }from 'react-router-dom';
-
+import React from "react";
+import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 
 function Contact() {
-  return (       
-      <div>
-         <Link to='/'>
-           <h2>Home</h2>
-         </Link>
-           <h1>Contacto</h1>
-      </div>   
-
-  )
+    return (
+        <div>
+            <NavBar />
+            <h1>Contacto</h1>
+        </div>
+    );
 }
 
-export default Contact
+export default Contact;
