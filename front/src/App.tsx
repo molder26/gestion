@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
 import  LandingPage  from './Components/LandingPage/LandingPage';
-import  Client  from './Components/Clientt/Client';
+import  Client  from './Components/Client/Client';
 import  Product  from './Components/Product/Product';
 import  Invoice  from './Components/Invoice/Invoice';
 import  Contact  from './Components/Contact/Contact';
