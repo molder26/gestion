@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 const pages = ["Client", "Product", "Invoice", "Contact"];
 
 function NavBar() {
+    const location = useLocation();
+    
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
         null
     );
@@ -23,7 +25,7 @@ function NavBar() {
         setAnchorElNav(event.currentTarget);
     };
 
-    const handleCloseNavMenu= () => {
+    const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
 
@@ -47,6 +49,7 @@ function NavBar() {
                             letterSpacing: ".3rem",
                             color: "inherit",
                             textDecoration: "none",
+                            userSelect: 'none'
                         }}
                     >
                         GESTION
@@ -88,8 +91,9 @@ function NavBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                key={page}
+                                onClick={handleCloseNavMenu}
+                                selected={page === location.pathname.split("/").pop()}
                                 >
                                     <Typography textAlign="center">
                                         <Link
@@ -124,8 +128,9 @@ function NavBar() {
                             color: "inherit",
                             textDecoration: "none",
                         }}
+                        style={{ display: "none" }}
                     >
-                        LOGO
+                        GESTION
                     </Typography>
                     <Box
                         sx={{
@@ -138,6 +143,7 @@ function NavBar() {
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: "white", display: "block" }}
+                                disabled={page === location.pathname.split("/").pop()}
                             >
                                 <Link
                                     style={{
