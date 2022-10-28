@@ -12,7 +12,8 @@ function Product() {
             </div>
 
             <Formik
-                initialValues={{ name: "", price: 0, stock: 0 }}
+                initialValues={{ name: "", price:0 , stock:0 }}
+                
                 validationSchema={Yup.object({
                     name: Yup.string().required("El Campo nombre es requerido"),
                     price: Yup.number().required(
