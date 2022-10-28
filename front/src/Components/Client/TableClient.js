@@ -1,4 +1,4 @@
-import MUIDataTable from "mui-datatables";
+import  MUIDataTable  from "mui-datatables";
 
 
 const columns = ["Nombre", "Apellido", "Direccion", "Telefono"];
@@ -17,8 +17,7 @@ export const TableClient = () => {
         title={"Lista de Clientes"}
         data={data}
         columns={columns}
-        options={options}
-        
+        options={options}        
         />
     )
 }
